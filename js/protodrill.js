@@ -70,9 +70,7 @@ var ProtoDrill = Class.create({
 				else{
 					s.observe('click', this.selectItem.bind(this));
 				}
-				
-				
-				
+
 				s.observe('mouseover', function(e){Event.element(e).addClassName('protodrill_over')});
 				s.observe('mouseout', function(e){Event.element(e).removeClassName('protodrill_over')});
 			}
@@ -146,14 +144,44 @@ var ProtoDrill = Class.create({
 			this.openSelector();
 		}
 	},
+	
+	createListFromJson: function(data){
+		this.list = this.createUl(data);
+		this.list_container.insert(this.list);
+		
+		this.setupDrillMenu();
+	},
+	createUl: function(items){
+		var ul = new Element('ul');
+		
+		items.each(function(item){
+			var li = new Element('li',{'id':"item_"+item.id}).update(item.name);
+			
+			if(item.children){
+				li.insert(this.createUl(item.children));
+			}
+			ul.insert(li);
+		}, this);
+		
+		return ul;
+	},
 	loadContent: function(){
-		var url = '/menu.html';
 
-		new Ajax.Updater(this.list_container, url, {
+		new Ajax.Request(this.element.href, {
 			method: 'get',
-			insertion: Insertion.Bottom,
-			onComplete: function(e){
-				this.setupDrillMenu();
+			onComplete: function(transport, json){
+				if(this.element.href.endsWith('.js')){
+					// expect json
+					data = transport.responseText.evalJSON();
+					this.createListFromJson(data);
+				}
+				else{
+					
+					//expect html list
+					this.list_container.update(transport.responseText);
+					this.setupDrillMenu();
+				}
+				
 			}.bind(this)
 		});
 	}
