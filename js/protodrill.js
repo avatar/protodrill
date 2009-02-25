@@ -2,7 +2,7 @@ var ProtoDrill = Class.create({
 	active:false,
 	image_dir: '../images/',
 	settings: {
-		width: 200
+		width: 300
 	},
 	
 	// do not touch below!
@@ -62,7 +62,7 @@ var ProtoDrill = Class.create({
 		this.list.descendants().each(function(s) {
 			if(s.nodeName=='LI'){
 				if(s.down('ul')){
-					s.down('ul').setStyle({'left':this.settings.width+'px'});
+					s.down('ul').setStyle({'left':this.settings.width+'px', 'width':this.settings.width+'px'});
 					nextlvl_img = new Element('img', {'src':this.image_dir+'next.png', 'align':'right'});
 					s.insert({top:nextlvl_img});
 					s.observe('click', this.showNextLevel.bind(this));
@@ -85,8 +85,8 @@ var ProtoDrill = Class.create({
 		child_ul  = clicked_element.down('ul');
 		
 		if(child_ul){
-			child_ul.setStyle({display:'block', left:this.settings.width});
-			new Effect.Move(child_ul, { x: -this.settings.width, y: 0, mode: 'relative', duration:0.5 });
+			//child_ul.setStyle({display:'block', left:this.settings.width});
+			new Effect.Move(child_ul, { x: 0, y: 0, mode: 'absolute', duration:0.5 });
 			this.active_element = child_ul;
 			
 			crumb_text = clicked_element.cleanWhitespace().childNodes[1].nodeValue.strip();
@@ -176,7 +176,6 @@ var ProtoDrill = Class.create({
 					this.createListFromJson(data);
 				}
 				else{
-					
 					//expect html list
 					this.list_container.update(transport.responseText);
 					this.setupDrillMenu();

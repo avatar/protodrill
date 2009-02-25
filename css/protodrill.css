@@ -1,9 +1,8 @@
 .protodrill_selector{
 	display:block;
-	width:295px;
+	width:298px;
 	background:#eee;
 	border:1px solid #ccc;
-	padding-left:5px;
 }
 .protodrill_selector:active, .protodrill_selector:focus{
 	outline:none;
@@ -17,15 +16,14 @@
 	color:#fff;
 }
 .protodrill_crumble{
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
 	background:#fff;
-	border-left:1px solid #ccc;
-	border-right:1px solid #ccc;
 	clear:both;
 }
 .protodrill_crumble span{
 	font-weight:bold;
 	font-size:large;
-	padding:5px;
 }
 .protodrill_crumble a{color:#000;font-size:small;display:block}
 .protodrill_crumble a:link{color:#000;}
@@ -33,20 +31,21 @@
 .protodrill_crumble a:hover{color:#000;text-decoration:none}
 .protodrill_container{
 	background:#eee;
-	border:1px solid #ccc;
 	height:150px;
 	position:relative;
-	overflow:hidden;
+	overflow-x:hidden;
+	overflow-y:auto;
+	border:1px solid #ccc;
 }
 
 .protodrill_container ul {
 	clear:both;
 	list-style-type:none;
 	overflow: visible; 
-	position:absolute;
+	position: absolute;
 	display:block;
 	top:0;
-	padding: 0; 
+	padding:0; 
 	margin:0; 
 	color:#666;
 	background:#eee;
@@ -56,12 +55,11 @@
 
 .protodrill_container li {
 	display:block;
-	padding-left:5px;
-	border-bottom:1px solid #ccc;
 	cursor:pointer;
 	float:left;
 	width:100% !important;
 	background:#eee;
+	border-bottom:1px solid #ccc;
 }
 
 li.protodrill_over{
